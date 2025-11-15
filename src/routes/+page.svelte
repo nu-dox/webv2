@@ -1,3 +1,7 @@
 <!--Main Page-->
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<div class="flex flex-col justify-center items-center flex-1">
+  <main>
+    <h1 class="text-xl">Search for documentation</h1>
+  </main>
+</div>
+
