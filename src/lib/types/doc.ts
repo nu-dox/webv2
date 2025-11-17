@@ -1,0 +1,27 @@
+export type Doc = {
+  _id: string;
+  language: string;
+  library_name: string;
+  library_version: string;
+  ir_version: string;
+  path: Array<string>;
+  name: string;
+  fq_name: string;
+  king_tag: string;
+  symbol_type: string;
+  visibility: string;
+  export: boolean;
+  show: boolean;
+  has_docs: boolean;
+  has_members: boolean;
+  has_input_params: boolean;
+  has_output_params: boolean;
+  input_type_strings: Array<string>;
+  output_type_strings: Array<string>;
+  variant_names: Array<string>;
+  documentation: string;
+  members: Array<string>;
+  inputParameters: Array<object>;
+  outputParameters: Array<object>;
+  kind: Object;
+};
