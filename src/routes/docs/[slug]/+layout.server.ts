@@ -1,6 +1,8 @@
 import { error } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
+//TODO: Improve doc fetching logic to reduce data transfer and improve performance
+
 export const load: LayoutServerLoad = async ({ params, fetch }) => {
   const res = await fetch('/api/docs');
   if (!res.ok) throw error(502, 'Failed to fetch docs from API');

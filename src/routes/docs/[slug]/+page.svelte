@@ -4,6 +4,31 @@
   let { data } = $props();
   const doc: Partial<Doc> = data?.doc || {};
   const title = doc.name || doc.fq_name || 'Document';
+
+  // Parse documentation to extract and format code blocks
+  function parseDocumentation(html: string) {
+    if (!html) return '';
+    
+    // Split by triple backticks, alternate between normal text and code blocks
+    const parts = html.split(/```/);
+    
+    return parts.map((part, index) => {
+      if (index % 2 === 0) {
+        // Normal text/HTML
+        return part;
+      } else {
+        // Code block - escape HTML and wrap in pre tags
+        const escaped = part
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .trim();
+        return `<pre class="code-block"><code>${escaped}</code></pre>`;
+      }
+    }).join('');
+  }
+
+  const parsedDocumentation = parseDocumentation(doc.documentation || '');
 </script>
 
 <div class="min-h-screen bg-linear-to-br from-gray-900 to-gray-800 text-white p-8">
@@ -38,8 +63,8 @@
     {#if doc.documentation}
       <div class="bg-gray-700 rounded-lg p-8 mb-12 border border-gray-600">
         <h2 class="text-2xl font-bold mb-6 text-blue-300">Documentation</h2>
-        <div class="prose prose-invert max-w-none">
-          {@html doc.documentation}
+        <div class="prose prose-invert max-w-none doc-content overflow-hidden">
+          {@html parsedDocumentation}
         </div>
       </div>
     {/if}
@@ -182,3 +207,63 @@
     {/if}
   </div>
 </div>
+
+<style>
+  /* Prevent documentation HTML from breaking layout */
+  :global(.doc-content) {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  :global(.doc-content *) {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  :global(.doc-content table) {
+    table-layout: auto;
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+
+  :global(.doc-content img) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :global(.doc-content del),
+  :global(.doc-content s) {
+    text-decoration: line-through;
+  }
+
+  :global(.doc-content code:not(.code-block code)) {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+  }
+
+  :global(.code-block) {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 1rem 0;
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  :global(.code-block code) {
+    background: none;
+    padding: 0;
+    color: #e0e0e0;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+</style>
