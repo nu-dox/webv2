@@ -25,8 +25,7 @@
       const query = searchQuery.toLowerCase();
       filteredResults = docs.filter(doc =>
         doc.name.toLowerCase().includes(query) ||
-        doc.fq_name.toLowerCase().includes(query) ||
-        doc.documentation.toLowerCase().includes(query)
+        doc.fq_name.toLowerCase().includes(query)
       );
     }
   }
