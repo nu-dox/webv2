@@ -57,7 +57,11 @@
 		{#if filteredResults.length > 0}
 			<div class="flex flex-col justify-center mt-4 space-y-2 w-1/2">
 				{#each filteredResults as doc (doc._id)}
-					<SearchResult name={doc.name} description={truncateDescription(doc.documentation)} />
+					<SearchResult 
+						name={doc.name} 
+						description={truncateDescription(doc.documentation)}
+						slug={doc.name}
+					/>
 				{/each}
 			</div>
 		{:else if searchQuery.trim() !== ''}
