@@ -23,10 +23,18 @@
       filteredResults = [];
     } else {
       const query = searchQuery.toLowerCase();
-      filteredResults = docs.filter(doc =>
-        doc.name.toLowerCase().includes(query) ||
-        doc.fq_name.toLowerCase().includes(query)
-      );
+      const nameSearch = docs.filter(doc =>
+				doc.name.toLowerCase().includes(query)
+			);
+			const fqNameSearch = docs.filter(doc =>
+				doc.fq_name.toLowerCase().includes(query)
+			);
+			const combinedResults = [...nameSearch, ...fqNameSearch];
+			const uniqueResultsMap = new Map<string, Doc>();// Use a map to ensure uniqueness based on _id
+			combinedResults.forEach(doc => {
+				uniqueResultsMap.set(doc._id, doc);//Filter through results to ensure no duplicates
+			});
+			filteredResults = Array.from(uniqueResultsMap.values());
     }
   }
 
