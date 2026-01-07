@@ -1,4 +1,4 @@
-import { Token } from "../dsl/tokenizer.js";
+import type { Token } from "../dsl/tokenizer.js";
 
 export interface FilteredExpression {
   field: string;
@@ -21,9 +21,22 @@ export function parseTokens(tokens: Token[]): FilteredExpression[] {
     filters.push({
       field: fieldToken.value,
       operator: operatorToken.value,
-      value: valueToken.value,
+      value: parseValue(valueToken.value),
     });
   }
 
   return filters;
+}
+
+function parseValue(value: string): string | number | boolean {
+  if (/^\d+$/.test(value)) {
+    return parseInt(value, 10);
+  } else if (/^\d+\.\d+$/.test(value)) {
+    return parseFloat(value);
+  } else if (value.toLowerCase() === "true") {
+    return true;
+  } else if (value.toLowerCase() === "false") {
+    return false;
+  }
+  return value;
 }

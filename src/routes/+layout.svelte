@@ -6,6 +6,9 @@
 	import SearchResult from '$lib/SearchResult.svelte';
   import { onMount } from 'svelte';
   import type { Doc } from '$lib/types/doc';
+	import { tokenize } from '$lib/dsl/tokenizer';
+	import { parseTokens } from '$lib/dsl/parser';
+	import { applyFilters } from '$lib/dsl/filter';
 
   let docs: Doc[] = [];
   let searchQuery: string = '';
@@ -18,6 +21,7 @@
   });
 
 	//TODO: Make search DSL
+	//Search filtering logic
   $: {
     if (searchQuery.trim() === '') {
       filteredResults = [];
@@ -35,6 +39,15 @@
 				uniqueResultsMap.set(doc._id, doc);//Filter through results to ensure no duplicates
 			});
 			filteredResults = Array.from(uniqueResultsMap.values());
+			//DSL-based search
+			/*try {
+				const tokens = tokenize(searchQuery);
+				const ast = parseTokens(tokens);
+				filteredResults = applyFilters(docs, ast);
+			} catch (error) {
+				console.error("Error parsing search query:", error);
+				filteredResults = [];
+			}*/
     }
   }
 
