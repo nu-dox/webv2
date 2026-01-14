@@ -13,9 +13,10 @@ export function parseTokens(tokens: Token[]): FilteredExpression[] {
     const fieldToken = tokens[i];
     const operatorToken = tokens[i + 1];
     const valueToken = tokens[i + 2];
+    console.log(fieldToken);
 
     if (!fieldToken || !operatorToken || !valueToken) {
-      throw new Error("Invalid token sequence");
+      continue;
     }
 
     filters.push({
