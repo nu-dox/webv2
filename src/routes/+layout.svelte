@@ -18,6 +18,12 @@
   onMount(async () => {
     const res = await fetch("/api/docs");
     docs = await res.json();
+
+	//Terminus DB data pull
+	const res2 = await fetch("/api/db");
+  	const data = await res2.json();
+
+	console.log({ dbInfo: data });
   });
 
 	//TODO: Make search DSL
