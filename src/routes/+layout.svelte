@@ -4,8 +4,8 @@
 	import SearchBar from '$lib/SearchBar.svelte';
 	import Button from '$lib/Button.svelte';
 	import SearchResult from '$lib/SearchResult.svelte';
-  import { onMount } from 'svelte';
-  import type { Doc } from '$lib/types/doc';
+  	import { onMount } from 'svelte';
+  	import type { Doc } from '$lib/types/doc';
 	import { tokenize } from '$lib/dsl/tokenizer';
 	import { parseTokens } from '$lib/dsl/parser';
 	import { applyFilters } from '$lib/dsl/filter';
