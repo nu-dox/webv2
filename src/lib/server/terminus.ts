@@ -8,10 +8,11 @@ export async function getTerminus() {
     organization: "admin",
   });
 
-  await client.connect({ key: "..Mk*1%4*NYc9r}147s~n@>W6B", db: "mydb" });
+  await client.connect({ 
+    key: "..Mk*1%4*NYc9r}147s~n@>W6B", 
+    db: "mydb" 
+  });
 
   return client;
 }
-
-export type { TerminusClient };
 
