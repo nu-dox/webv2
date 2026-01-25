@@ -19,11 +19,16 @@
     const res = await fetch("/api/docs");
     docs = await res.json();
 
-	//Terminus DB data pull
+	//Terminus DB db connection check
 	const res2 = await fetch("/api/db");
   	const data = await res2.json();
 
 	console.log({ dbInfo: data });
+
+	//Terminus DB data pull test
+	const res3 = await fetch("/api/db/documents?listDbs=true");
+	const terminusDocs = await res3.json();
+	console.log({ terminusDocs  });
   });
 
 	//TODO: Make search DSL

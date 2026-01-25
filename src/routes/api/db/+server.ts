@@ -6,6 +6,7 @@ export async function GET() {
   try {
     const terminus = await getTerminus();
     const info = await terminus.info();
+    console.log("TerminusDB Info:", info); // Log the info to the server console
     return json(info);
   } catch (err) {
     console.error(err);
