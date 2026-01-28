@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	// @ts-ignore: allow importing SVG asset without type declarations
 	import favicon from '$lib/assets/favicon.svg';
 	import SearchBar from '$lib/SearchBar.svelte';
 	import Button from '$lib/Button.svelte';
