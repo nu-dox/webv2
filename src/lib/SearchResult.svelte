@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  
-  export let name: string = 'Result';
-  export let description: string = 'No description available';
-  export let slug: string = '';
+import { goto } from '$app/navigation';
 
-  async function handleClick() {
-    if (slug) {
-      await goto(`/docs/${slug}`);
-      window.location.reload();
-    }
-  }
+export const name: string = 'Result';
+export const description: string = 'No description available';
+export const slug: string = '';
+
+async function handleClick() {
+	if (slug) {
+		await goto(`/docs/${slug}`);
+		window.location.reload();
+	}
+}
 </script>
 
 <button

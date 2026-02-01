@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  export let value: string = '';
-  const dispatch = createEventDispatcher();
+import { createEventDispatcher } from 'svelte';
+export let value: string = '';
+const dispatch = createEventDispatcher();
 
-  function onInput(e: Event) {
-    const input = e.target as HTMLInputElement;
-    value = input.value;
-    dispatch('input', { value });
-  }
+function onInput(e: Event) {
+	const input = e.target as HTMLInputElement;
+	value = input.value;
+	dispatch('input', { value });
+}
 </script>
 
 <!-- svelte-ignore a11y_autofocus -->

@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { tokenize } from "$lib/dsl/tokenizer";
-  import { parseTokens } from "$lib/dsl/parser";
-  import { applyFilters } from "$lib/dsl/filter";
-  import { users } from "$lib/data";
+import { users } from '$lib/data';
+import { applyFilters } from '$lib/dsl/filter';
+import { parseTokens } from '$lib/dsl/parser';
+import { tokenize } from '$lib/dsl/tokenizer';
 
-  let query = "";
-  let result = users;
+const query = '';
+let result = users;
 
-  function runSearch() {
-    const tokens = tokenize(query);
-    const parsed = parseTokens(tokens);
-    result = applyFilters(users, parsed);
-  }
+function runSearch() {
+	const tokens = tokenize(query);
+	const parsed = parseTokens(tokens);
+	result = applyFilters(users, parsed);
+}
 </script>
 
 <div class="container">

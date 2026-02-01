@@ -1,58 +1,54 @@
 <script lang="ts">
-	import '../app.css';
-	// @ts-ignore: allow importing SVG asset without type declarations
-	import favicon from '$lib/assets/favicon.svg';
-	import SearchBar from '$lib/SearchBar.svelte';
-	import Button from '$lib/Button.svelte';
-	import SearchResult from '$lib/SearchResult.svelte';
-  	import { onMount } from 'svelte';
-  	import type { Doc } from '$lib/types/doc';
-	import { tokenize } from '$lib/dsl/tokenizer';
-	import { parseTokens } from '$lib/dsl/parser';
-	import { applyFilters } from '$lib/dsl/filter';
+import '../app.css';
+import { onMount } from 'svelte';
+// @ts-expect-error: allow importing SVG asset without type declarations
+import favicon from '$lib/assets/favicon.svg';
+import Button from '$lib/Button.svelte';
+import { applyFilters } from '$lib/dsl/filter';
+import { parseTokens } from '$lib/dsl/parser';
+import { tokenize } from '$lib/dsl/tokenizer';
+import SearchBar from '$lib/SearchBar.svelte';
+import SearchResult from '$lib/SearchResult.svelte';
+import type { Doc } from '$lib/types/doc';
 
-  let docs: Doc[] = [];
-  let searchQuery: string = '';
-  let filteredResults: Doc[] = [];
+let docs: Doc[] = [];
+const searchQuery: string = '';
+let filteredResults: Doc[] = [];
 
-	//Fetch data from mongoDB
-  onMount(async () => {
-    const res = await fetch("/api/docs");
-    docs = await res.json();
+//Fetch data from mongoDB
+onMount(async () => {
+	const res = await fetch('/api/docs');
+	docs = await res.json();
 
 	//Terminus DB db connection check
-	const res2 = await fetch("/api/db");
-  	const data = await res2.json();
+	const res2 = await fetch('/api/db');
+	const data = await res2.json();
 
 	console.log({ dbInfo: data });
 
 	//Terminus DB data pull test
-	const res3 = await fetch("/api/db/documents?listDbs=true");
+	const res3 = await fetch('/api/db/documents?listDbs=true');
 	const terminusDocs = await res3.json();
-	console.log({ terminusDocs  });
-  });
+	console.log({ terminusDocs });
+});
 
-	//TODO: Make search DSL
-	//Search filtering logic
-  $: {
-    if (searchQuery.trim() === '') {
-      filteredResults = [];
-    } else {
-      const query = searchQuery.toLowerCase();
-      const nameSearch = docs.filter(doc =>
-				doc.name.toLowerCase().includes(query)
-			);
-			const fqNameSearch = docs.filter(doc =>
-				doc.fq_name.toLowerCase().includes(query)
-			);
-			const combinedResults = [...nameSearch, ...fqNameSearch];
-			const uniqueResultsMap = new Map<string, Doc>();// Use a map to ensure uniqueness based on _id
-			combinedResults.forEach(doc => {
-				uniqueResultsMap.set(doc._id, doc);//Filter through results to ensure no duplicates
-			});
-			filteredResults = Array.from(uniqueResultsMap.values());
-			//DSL-based search
-			/*try {
+//TODO: Make search DSL
+//Search filtering logic
+$: {
+	if (searchQuery.trim() === '') {
+		filteredResults = [];
+	} else {
+		const query = searchQuery.toLowerCase();
+		const nameSearch = docs.filter((doc) => doc.name.toLowerCase().includes(query));
+		const fqNameSearch = docs.filter((doc) => doc.fq_name.toLowerCase().includes(query));
+		const combinedResults = [...nameSearch, ...fqNameSearch];
+		const uniqueResultsMap = new Map<string, Doc>(); // Use a map to ensure uniqueness based on _id
+		combinedResults.forEach((doc) => {
+			uniqueResultsMap.set(doc._id, doc); //Filter through results to ensure no duplicates
+		});
+		filteredResults = Array.from(uniqueResultsMap.values());
+		//DSL-based search
+		/*try {
 				const tokens = tokenize(searchQuery);
 				const ast = parseTokens(tokens);
 				filteredResults = applyFilters(docs, ast);
@@ -60,16 +56,16 @@
 				console.error("Error parsing search query:", error);
 				filteredResults = [];
 			}*/
-    }
-  }
+	}
+}
 
-  function truncateDescription(text: string, maxLength: number = 300): string {
-    if (!text) return '';
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  }
+function truncateDescription(text: string, maxLength: number = 300): string {
+	if (!text) return '';
+	if (text.length > maxLength) {
+		return text.substring(0, maxLength) + '...';
+	}
+	return text;
+}
 </script>
 
 <svelte:head>

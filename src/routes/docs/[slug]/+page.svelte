@@ -1,34 +1,36 @@
 <script lang="ts">
-  import type { Doc } from '$lib/types/doc';
-  
-  let { data } = $props();
-  const doc: Partial<Doc> = data?.doc || {};
-  const title = doc.name || doc.fq_name || 'Document';
+import type { Doc } from '$lib/types/doc';
 
-  // Parse documentation to extract and format code blocks
-  function parseDocumentation(html: string) {
-    if (!html) return '';
-    
-    // Split by triple backticks, alternate between normal text and code blocks
-    const parts = html.split(/```/);
-    
-    return parts.map((part, index) => {
-      if (index % 2 === 0) {
-        // Normal text/HTML
-        return part;
-      } else {
-        // Code block - escape HTML and wrap in pre tags
-        const escaped = part
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .trim();
-        return `<pre class="code-block"><code>${escaped}</code></pre>`;
-      }
-    }).join('');
-  }
+const { data } = $props();
+const doc: Partial<Doc> = data?.doc || {};
+const title = doc.name || doc.fq_name || 'Document';
 
-  const parsedDocumentation = parseDocumentation(doc.documentation || '');
+// Parse documentation to extract and format code blocks
+function parseDocumentation(html: string) {
+	if (!html) return '';
+
+	// Split by triple backticks, alternate between normal text and code blocks
+	const parts = html.split(/```/);
+
+	return parts
+		.map((part, index) => {
+			if (index % 2 === 0) {
+				// Normal text/HTML
+				return part;
+			} else {
+				// Code block - escape HTML and wrap in pre tags
+				const escaped = part
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;')
+					.trim();
+				return `<pre class="code-block"><code>${escaped}</code></pre>`;
+			}
+		})
+		.join('');
+}
+
+const parsedDocumentation = parseDocumentation(doc.documentation || '');
 </script>
 
 <div class="min-h-screen bg-linear-to-br from-gray-900 to-gray-800 text-white p-8">

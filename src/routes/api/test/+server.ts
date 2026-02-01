@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
+import { env } from '$env/dynamic/private';
 
 export function GET() {
-	return new Response(env.MONGODB_URI ?? "NOT FOUND");
+	return new Response(env.MONGODB_URI ?? 'NOT FOUND');
 }
