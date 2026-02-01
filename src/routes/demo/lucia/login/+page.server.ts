@@ -1,4 +1,3 @@
-import { hash, verify } from '@node-rs/argon2';
 import { encodeBase32LowerCase } from '@oslojs/encoding';
 import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -21,10 +20,10 @@ export const actions: Actions = {
 		const password = formData.get('password');
 
 		if (!validateUsername(username)) {
-			return fail(400, { message: 'Invalid username (min 3, max 31 characters, alphanumeric only)' });
+			return fail(400, { message: 'Invalid username' });
 		}
 		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password (min 6, max 255 characters)' });
+			return fail(400, { message: 'Invalid password' });
 		}
 
 		const results = await db
@@ -33,17 +32,11 @@ export const actions: Actions = {
 			.where(eq(table.user.username, username));
 
 		const existingUser = results.at(0);
-		if (!existingUser) {
-			return fail(400, { message: 'Incorrect username or password' });
-		}
 
-		const validPassword = await verify(existingUser.passwordHash, password, {
-			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1,
-		});
-		if (!validPassword) {
+		if (
+			!existingUser ||
+			!(await Bun.password.verify(password as string, existingUser.passwordHash))
+		) {
 			return fail(400, { message: 'Incorrect username or password' });
 		}
 
@@ -66,12 +59,10 @@ export const actions: Actions = {
 		}
 
 		const userId = generateUserId();
-		const passwordHash = await hash(password, {
-			// recommended minimum parameters
+		const passwordHash = await Bun.password.hash(password as string, {
+			algorithm: 'argon2id',
 			memoryCost: 19456,
-			timeCost: 2,
-			outputLen: 32,
-			parallelism: 1,
+			timeCost: 2
 		});
 
 		try {
@@ -80,15 +71,14 @@ export const actions: Actions = {
 			const sessionToken = auth.generateSessionToken();
 			const session = await auth.createSession(sessionToken, userId);
 			auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
-		} catch {
-			return fail(500, { message: 'An error has occurred' });
+		} catch (e) {
+			return fail(500, { message: 'User already exists or database error' });
 		}
 		return redirect(302, '/demo/lucia');
-	},
+	}
 };
 
 function generateUserId() {
-	// ID with 120 bits of entropy, or about the same as UUID v4.
 	const bytes = crypto.getRandomValues(new Uint8Array(15));
 	const id = encodeBase32LowerCase(bytes);
 	return id;
@@ -109,4 +99,4 @@ function validatePassword(password: unknown): password is string {
 		password.length >= 6 &&
 		password.length <= 255
 	);
-}
+};
