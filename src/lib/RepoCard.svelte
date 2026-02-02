@@ -10,7 +10,7 @@
 
 <a 
 	href="/repo/{repo.slug}" 
-	class="group block bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
+	class="group block bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-gray-300 hover:bg-gray-100 transition-all duration-200"
 >
 	<div class="flex flex-col h-full">
 		<div class="flex items-center gap-2 mb-2">
@@ -39,7 +39,7 @@
 		</div>
 
 		{#if !repo.hasData}
-			<div class="mt-3 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-md inline-block w-fit">
+			<div class="mt-3 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-md inline-block w-fit">
 				Coming Soon
 			</div>
 		{/if}

@@ -67,7 +67,7 @@
 
 <div class="flex flex-col min-h-screen">
 	<nav class="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-6 py-4 bg-gray-800 text-white shadow min-h-[72px]">
-		<a href="/" class="text-xl font-bold hover:text-gray-300 transition-colors">Nudox</a>
+		<a href="/" class="text-xl font-bold hover:text-gray-300 transition-colors" onclick={() => searchQuery.set('')}>Nudox</a>
 
 		{#if $showNavbarSearch}
 			<div class="flex justify-center px-4">
@@ -85,7 +85,7 @@
 	<main class="flex-1 flex flex-col">
 		{#if isSearching}
 			<!-- Search Results Overlay -->
-			<div class="flex flex-col items-center py-8 px-4 bg-gray-50 flex-1">
+			<div class="flex flex-col items-center py-8 px-4 bg-gray-700 flex-1">
 				{#if filteredResults.length > 0}
 					<div class="flex flex-col w-full max-w-2xl space-y-2">
 						{#each filteredResults as doc (doc._id)}

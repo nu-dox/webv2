@@ -25,20 +25,20 @@
 
 <div class="flex flex-col min-h-[calc(100vh-140px)]">
 	<!-- Repo Header -->
-	<div class="bg-white border-b border-gray-200 py-4 px-6">
-		<div class="max-w-4xl mx-auto flex items-center gap-4">
-			<a href="/" class="text-gray-400 hover:text-gray-600 transition-colors" aria-label="Back to repositories">
+	<div class="bg-gray-700 py-4 px-6">
+		<div class="flex items-center gap-4">
+			<a href="/" class="text-gray-400 hover:text-gray-200 transition-colors border-2 rounded-3xl p-1" aria-label="Back to repositories">
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
 				</svg>
 			</a>
 			<div>
 				<div class="flex items-center gap-2">
-					<span class="text-gray-500">{data.repo.owner}</span>
+					<span class="text-gray-300">{data.repo.owner}</span>
 					<span class="text-gray-400">/</span>
-					<span class="font-semibold text-gray-900">{data.repo.name}</span>
+					<span class="font-semibold text-gray-100">{data.repo.name}</span>
 				</div>
-				<p class="text-sm text-gray-500 mt-1">{data.repo.description}</p>
+				<p class="text-sm text-gray-300 mt-1">{data.repo.description}</p>
 			</div>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 			{#if loading}
 				<p class="text-gray-500">Loading documentation...</p>
 			{:else}
-				<div class="text-center text-gray-500 mt-8">
+				<div class="text-center text-gray-100 mt-8">
 					<svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
 					</svg>

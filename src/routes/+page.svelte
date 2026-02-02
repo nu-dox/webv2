@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div class="flex flex-col items-center py-16 px-4 bg-gray-600 flex-1">
+<div class="flex flex-col items-center py-16 px-4 bg-gray-700 flex-1">
 	<h1 class="text-3xl font-semibold text-white mb-8">
 		Which repo are you looking for today?
 	</h1>
