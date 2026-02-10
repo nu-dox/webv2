@@ -66,8 +66,8 @@
 </svelte:head>
 
 <div class="flex flex-col min-h-screen">
-	<nav class="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-6 py-4 bg-gray-800 text-white shadow min-h-[72px]">
-		<a href="/" class="text-xl font-bold hover:text-gray-300 transition-colors" onclick={() => searchQuery.set('')}>Nudox</a>
+	<nav class="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-6 py-4 bg-gray-800 text-white min-h-[72px] border-none">
+		<a href="/" class="text-xl font-bold hover:text-gray-300 transition-colors" onclick={() => searchQuery.set('')}>docs.nudox</a>
 
 		{#if $showNavbarSearch}
 			<div class="flex justify-center px-4">
@@ -79,10 +79,10 @@
 			<div></div>
 		{/if}
 
-		<Button text="Sign Up" width="5rem" />
+		<Button text="Nudox" width="5rem" />
 	</nav>
 
-	<main class="flex-1 flex flex-col">
+	<main class="flex-1 flex flex-col border-none">
 		{#if isSearching}
 			<!-- Search Results Overlay -->
 			<div class="flex flex-col items-center py-8 px-4 bg-gray-700 flex-1">
