@@ -106,6 +106,6 @@
 	</main>
 
 	<footer class="p-5 bg-gray-800 text-white text-center">
-		<p>Nudox &copy; 2025</p>
+		<p>Nudox &copy; 2026</p>
 	</footer>
 </div>
