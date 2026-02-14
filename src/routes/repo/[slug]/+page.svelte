@@ -33,7 +33,7 @@
 				</svg>
 			</a>
 			<div>
-				<div class="flex items-center gap-2">
+				<div class="flex items-center gap-2 mt-6">
 					<span class="text-gray-300">{data.repo.owner}</span>
 					<span class="text-gray-400">/</span>
 					<span class="font-semibold text-gray-100">{data.repo.name}</span>
@@ -60,19 +60,19 @@
 		{:else}
 			<!-- Coming Soon State -->
 			<div class="flex flex-col items-center justify-center flex-1 text-center">
-				<div class="w-24 h-24 rounded-full bg-amber-100 flex items-center justify-center mb-6">
-					<svg class="w-12 h-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<div class="w-24 h-24 rounded-full bg-white flex items-center justify-center mb-6">
+					<svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
 					</svg>
 				</div>
-				<h2 class="text-2xl font-semibold text-gray-800 mb-2">Coming Soon</h2>
-				<p class="text-gray-500 max-w-md">
+				<h2 class="text-2xl font-semibold text-gray-100 mb-2">Coming Soon</h2>
+				<p class="text-gray-200 max-w-md">
 					Documentation for <strong>{data.repo.owner}/{data.repo.name}</strong> is not yet available. 
 					We're working on adding support for more repositories.
 				</p>
 				<a 
 					href="/" 
-					class="mt-6 px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+					class="mt-6 px-6 py-2 bg-gray-100 text-black rounded-lg hover:bg-gray-400 transition-colors"
 				>
 					Back to Repositories
 				</a>
