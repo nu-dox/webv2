@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 
 	let repoSearchQuery = $state('');
+	let repoSearchBar: HTMLInputElement;
 
 	let filteredRepos: Repo[] = $derived.by(() => {
 		if (repoSearchQuery.trim() === '') {
@@ -24,6 +25,8 @@
 		showNavbarSearch.set(false);
 		searchQuery.set('');
 		currentDocs.set([]);
+		//Auto focus on repo search bar when page loads
+		repoSearchBar.focus();
 	});
 </script>
 
@@ -40,6 +43,7 @@
 			<input 
 				type="text" 
 				bind:value={repoSearchQuery}
+				bind:this={repoSearchBar}
 				placeholder="Search for repositories (or paste a link)" 
 				class="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
 			/>
