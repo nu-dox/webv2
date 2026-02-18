@@ -79,7 +79,7 @@
 			<div></div>
 		{/if}
 
-		<Button text="Nudox" width="5rem" />
+		<Button text="Nudox" width="5rem" link="https://nudox.org" />
 	</nav>
 
 	<main class="flex-1 flex flex-col border-none">
