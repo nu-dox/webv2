@@ -20,6 +20,10 @@
 		);
 	});
 
+	let selectedIndex = $state(0)
+
+	let totalItems = $derived(filteredRepos.length + 1);
+  
 	onMount(() => {
 		// Hide search bar on landing page
 		showNavbarSearch.set(false);

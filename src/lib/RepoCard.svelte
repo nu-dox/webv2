@@ -3,14 +3,19 @@
 
 	interface Props {
 		repo: Repo;
+		isSelected?: boolean;
 	}
 
-	let { repo }: Props = $props();
+	let { repo, isSelected = false }: Props = $props();
 </script>
 
 <a 
 	href="/repo/{repo.slug}" 
-	class="group block bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-gray-300 hover:bg-gray-100 transition-all duration-200"
+	class="group block bg-white border rounded-xl p-6 hover:shadow-lg hover:border-gray-300 hover:bg-gray-100 transition-all duration-200"
+	class:border-blue-500={isSelected}
+	class:border-4={isSelected}
+	class:border-gray-400={!isSelected}
+	class:border-2={!isSelected}
 >
 	<div class="flex flex-col h-full">
 		<div class="flex items-center gap-2 mb-2">
