@@ -23,6 +23,19 @@
 	let selectedIndex = $state(0)
 
 	let totalItems = $derived(filteredRepos.length + 1);
+
+	function handleKeydown(e: KEyboardEvent) {
+		//If user is typing, let him type blyat, dont take over arrow keys
+		if (document.activeElement === repoSearchBar ){
+			return;
+		}
+
+		switch (e.key) {
+			case "ArrowRight":
+				e.preventDefault();
+				selectedIndex = (selectedIndex + 1) % totalItems;
+		}
+	}
   
 	onMount(() => {
 		// Hide search bar on landing page
@@ -34,7 +47,10 @@
 	});
 </script>
 
-<div class="flex flex-col items-center py-16 px-4 bg-gray-700 flex-1">
+<div
+	tabindex="0"
+	on:keyboard={handleKeydown}
+	class="flex flex-col items-center py-16 px-4 bg-gray-700 flex-1">
 	<h1 class="text-3xl font-semibold text-white mb-8">
 		Which repo are you looking for today?
 	</h1>
