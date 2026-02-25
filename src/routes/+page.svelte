@@ -24,18 +24,46 @@
 
 	let totalItems = $derived(filteredRepos.length + 1);
 
-	function handleKeydown(e: KEyboardEvent) {
+	function handleKeydown(e: KeyboardEvent) {
 		//If user is typing, let him type blyat, dont take over arrow keys
 		if (document.activeElement === repoSearchBar ){
 			return;
 		}
 
+		const columns = getColumnsCount();
+
 		switch (e.key) {
 			case "ArrowRight":
 				e.preventDefault();
 				selectedIndex = (selectedIndex + 1) % totalItems;
+				break;
+
+			case "ArrowLeft":
+				e.preventDefault();
+				selectedIndex = (selectedIndex - 1 + totalItems) % totalItems;
+				break;
+
+			case "ArrowUp":
+				e.preventDefault();
+				selectedIndex = Math.max(selectedIndex - columns, 0);
+				break;
+
+			case "ArrowDown":
+				e.preventDefault();
+				selectIndex = Math.min(selectedIndex + columns, totalItems - 1);
+				break;
 		}
 	}
+
+	function getColumnsCount() {
+		if (window.innerWidth >= 1024) {
+			return 3; //lg:grid-cols-3
+		}
+		if (window.innerWidth >= 768) {
+			return 2; //lg:grid-cols-2
+		}
+		return 1;
+	} 
   
 	onMount(() => {
 		// Hide search bar on landing page
@@ -71,10 +99,13 @@
 	</div>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl">
-		<AddRepoCard />
+		<AddRepoCard isSelected={selectedIndex === 0}/>
 		
-		{#each filteredRepos as repo (repo.slug)}
-			<RepoCard {repo} />
+		{#each filteredRepos as repo, i (repo.slug)}
+			<RepoCard
+				{repo}
+				isSelected={selectedIndex === i + 1}
+			/>
 		{/each}
 	</div>
 </div>

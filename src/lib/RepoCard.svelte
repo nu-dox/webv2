@@ -11,11 +11,11 @@
 
 <a 
 	href="/repo/{repo.slug}" 
-	class="group block bg-white border rounded-xl p-6 hover:shadow-lg hover:border-gray-300 hover:bg-gray-100 transition-all duration-200"
+	class="group block bg-white border-2 rounded-xl p-6 transition-all duration-150"
 	class:border-blue-500={isSelected}
-	class:border-4={isSelected}
-	class:border-gray-400={!isSelected}
-	class:border-2={!isSelected}
+	class:border-gray-300={!isSelected}
+	class:ring-2={isSelected}
+	class:ring-blue-300={isSelected}
 >
 	<div class="flex flex-col h-full">
 		<div class="flex items-center gap-2 mb-2">
