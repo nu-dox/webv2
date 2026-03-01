@@ -1,10 +1,10 @@
 <script>
   export let text = "";
   export let width = "";
-  export let link = null;
+  export let link = "";
 
-  function handleClick(event) {
-    if (link != null) {
+  function handleClick() {
+    if (link != null && link !== "") {
       window.open(link, "_blank");
     }
   }
